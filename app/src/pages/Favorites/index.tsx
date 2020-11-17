@@ -70,7 +70,11 @@ const Favorite: React.FC = () => {
   
 
     useEffect(()=>{
-            setPets(user.favorite_pets);
+      async function loadPet(): Promise<void> {
+        const user_data = await api.get(`/users/${user.id}`);
+        setPets(user_data.data.favorite_pets);
+      }
+      loadPet();
     },[]);
 
     return (
@@ -97,9 +101,6 @@ const Favorite: React.FC = () => {
                 <PetImage source={{uri: "https://source.unsplash.com/user/erondu/600x400" }} />
                 <PetTitle>{item.name}</PetTitle>
                 <PetDescription>lorem ipsum lasdf lasd asdf lllas dfoasdf sad fsadfl</PetDescription>
-                <PetButton><Text>Favoritar</Text></PetButton>
-                <PetButton><Text>Adotar</Text></PetButton>
-                <PetButton><Text>Editar</Text></PetButton>
               </Pet>
             )}
           />

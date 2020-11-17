@@ -68,11 +68,13 @@ const Orders: React.FC = () => {
       });
     }
   
-
     useEffect(()=>{
-            setPets(user.candidate_pets);           
+      async function loadPet(): Promise<void> {
+        const user_data = await api.get(`/users/${user.id}`);
+        setPets(user_data.data.candidate_pets);
+      }
+      loadPet();
     },[]);
-
     return (
         <Container>
         <Header>
