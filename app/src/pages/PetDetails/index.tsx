@@ -9,8 +9,9 @@ import { Image } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import AsyncStorage from '@react-native-community/async-storage'
 import { useNavigation, useRoute } from '@react-navigation/native';
-
+import { useAuth, AuthProvider } from '../../hooks/auth';
 import api from '../../services/api';
 
 import {
@@ -23,19 +24,7 @@ import {
   PetContent,
   PetTitle,
   PetDescription,
-  PetPricing,
-  AdditionalsContainer,
-  Title,
-  TotalContainer,
-  AdittionalItem,
-  AdittionalItemText,
-  AdittionalQuantity,
-  PriceButtonContainer,
-  TotalPrice,
-  QuantityContainer,
-  FinishOrderButton,
-  ButtonText,
-  IconContainer,
+  PetButton,
 } from './styles';
 
 interface User {
@@ -65,6 +54,7 @@ interface Pet {
 }
 
 const PetDetails: React.FC = () => {
+  const { user } = useAuth();
   const [pet, setPet] = useState({} as Pet);
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -89,11 +79,14 @@ const PetDetails: React.FC = () => {
     [isFavorite],
   );
 
-  const toggleFavorite = useCallback(() => {
+  const toggleFavorite = useCallback( async () => {
+    const token = AsyncStorage.getItem('@QueroPet:token');
+    console.log(token)
+
     if (isFavorite) {
-      api.delete(`/favorite/${pet.id}`);
+      api.post(`/users/unfave/${pet.id}`, {});
     } else {
-      api.post(`favorites`, pet);
+      api.post(`/users/fave/${pet.id}`, {});
     }
   }, [isFavorite, pet]);
 
@@ -104,7 +97,7 @@ const PetDetails: React.FC = () => {
         <MaterialIcon
           name={favoriteIconName}
           size={24}
-          color="#FFB84D"
+          color="#F00"
           onPress={() => toggleFavorite()}
         />
       ),
@@ -140,6 +133,7 @@ const PetDetails: React.FC = () => {
               <PetDescription>{  pet.coat }</PetDescription>
               <PetTitle>Informações</PetTitle>
               <PetDescription>{ pet.info }</PetDescription>
+              <PetButton><PetDescription>Adotar</PetDescription></PetButton>
             </PetContent>
           </Pet>
         </PetsContainer>
