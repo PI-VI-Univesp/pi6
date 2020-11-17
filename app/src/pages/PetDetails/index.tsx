@@ -30,6 +30,7 @@ import {
 interface User {
   id: string;
   name: string;
+  favorite_pets: Pet[];
 }
 
 interface Institution {
@@ -55,20 +56,24 @@ interface Pet {
 
 const PetDetails: React.FC = () => {
   const { user } = useAuth();
+
   const [pet, setPet] = useState({} as Pet);
+  //const [user_data, setUserData] = useState({} as User);
   const [isFavorite, setIsFavorite] = useState(false);
 
   const navigation = useNavigation();
   const route = useRoute();
 
   const routeParams = route.params as Params;
-
+  
   useEffect(() => {
     async function loadPet(): Promise<void> {
       const response = await api.get(`/pets/${routeParams.id}`);
+      const user_data = await api.get(`/users/${user.id}`);
       setPet({
         ...response.data,
       });
+      setIsFavorite(!!user_data.data.favorite_pets.filter((obj) => (obj.id === routeParams.id )).length);
     }
     loadPet();
   }, [routeParams]);
@@ -80,13 +85,15 @@ const PetDetails: React.FC = () => {
   );
 
   const toggleFavorite = useCallback( async () => {
-    const token = AsyncStorage.getItem('@QueroPet:token');
-    console.log(token)
-
-    if (isFavorite) {
-      api.post(`/users/unfave/${pet.id}`, {});
-    } else {
-      api.post(`/users/fave/${pet.id}`, {});
+    try{
+      const token = await AsyncStorage.getItem('@QueroPet:token');
+      if (isFavorite) {
+        await api.post(`/users/unfave/${pet.id}`, { "user": user}, { headers: { Authorization: `Bearer ${token}` }}, );
+      } else {
+        await api.post(`/users/fave/${pet.id}`, {"user": user}, { headers: { Authorization: `Bearer ${token}`}}, );
+      }
+    } catch (err) {
+      console.log(err)
     }
   }, [isFavorite, pet]);
 
