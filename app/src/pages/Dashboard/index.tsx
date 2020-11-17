@@ -106,8 +106,6 @@ const Home: React.FC = () => {
                 <PetTitle>{item.name}</PetTitle>
                 <PetDescription>lorem ipsum lasdf lasd asdf lllas dfoasdf sad fsadfl</PetDescription>
                 <PetButton><Text>Favoritar</Text></PetButton>
-                <PetButton><Text>Adotar</Text></PetButton>
-                <PetButton><Text>Editar</Text></PetButton>
               </Pet>
             )}
           />
