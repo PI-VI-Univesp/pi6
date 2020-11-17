@@ -25,6 +25,7 @@ import {
   PetTitle,
   PetDescription,
   PetButton,
+  PetButtonText,
 } from './styles';
 
 interface User {
@@ -60,6 +61,9 @@ const PetDetails: React.FC = () => {
   const [pet, setPet] = useState({} as Pet);
   //const [user_data, setUserData] = useState({} as User);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isCandidate, setIsCandidate] = useState(false);
+  const [askForAdoptionText , setAskForAdoptionText ] = useState("Quero Adotar");
+  const [askForAdoptionBgColor , setAskForAdoptionBgColor ] = useState({ backgroundColor: "orange" });
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -74,6 +78,16 @@ const PetDetails: React.FC = () => {
         ...response.data,
       });
       setIsFavorite(!!user_data.data.favorite_pets.filter((obj) => (obj.id === routeParams.id )).length);
+      setIsCandidate(!!user_data.data.candidate_pets.filter((obj) => (obj.id === routeParams.id )).length);
+
+      if(!!user_data.data.candidate_pets.filter((obj) => (obj.id === routeParams.id )).length) {
+        setAskForAdoptionText("Desistir da Adoção");
+        setAskForAdoptionBgColor({backgroundColor: "brown"})
+      } else {
+        setAskForAdoptionText("Quero Adotar");
+        setAskForAdoptionBgColor({backgroundColor: "orange"})
+      }
+    
     }
     loadPet();
   }, [routeParams]);
@@ -98,6 +112,28 @@ const PetDetails: React.FC = () => {
       console.log(err)
     }
   }, [isFavorite, pet]);
+
+
+  const toggleCandidate = useCallback( async () => {
+    
+    try{
+      const token = await AsyncStorage.getItem('@QueroPet:token');
+      if (isCandidate) {
+        await api.post(`/users/unaskadoption/${pet.id}`, { "user": user}, { headers: { Authorization: `Bearer ${token}` }}, );
+        setIsCandidate(false);
+        setAskForAdoptionText("Quero Adotar");
+        setAskForAdoptionBgColor({backgroundColor: "orange"})
+      } else {
+        await api.post(`/users/askadoption/${pet.id}`, {"user": user}, { headers: { Authorization: `Bearer ${token}`}}, );
+        setIsCandidate(true);
+        setAskForAdoptionText("Desistir da Adoção");
+        setAskForAdoptionBgColor({backgroundColor: "brown"})
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }, [isCandidate, pet]);
+
 
   useLayoutEffect(() => {
     // Add the favorite icon on the right of the header bar
@@ -142,7 +178,7 @@ const PetDetails: React.FC = () => {
               <PetDescription>{  pet.coat }</PetDescription>
               <PetTitle>Informações</PetTitle>
               <PetDescription>{ pet.info }</PetDescription>
-              <PetButton><PetDescription>Adotar</PetDescription></PetButton>
+              <PetButton onPress={() => toggleCandidate()}  style={askForAdoptionBgColor}><PetButtonText>{askForAdoptionText}</PetButtonText></PetButton>
             </PetContent>
           </Pet>
         </PetsContainer>

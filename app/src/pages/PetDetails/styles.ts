@@ -72,7 +72,23 @@ export const Title = styled.Text`
   color: #3d3d4d;
 `;
 
-export const PetButton = styled.TouchableOpacity``;
+export const PetButton = styled.TouchableOpacity`    
+  display: flex;
+  background-color: #FF9000;
+  color: #FFF;
+  padding: 15px;
+  margin: 10px;
+  align-items: center;
+  margin-top: 24px;
+  text-decoration: none;
+
+`;
+
+export const PetButtonText = styled.Text`    
+  color: #FFF;
+  font-size: 24px;
+`;
+
 
 export const ButtonText = styled.Text`
   font-weight: 600;

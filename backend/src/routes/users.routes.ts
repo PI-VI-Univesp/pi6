@@ -158,7 +158,6 @@ usersRouter.post('/fave/:id', async ( request, response ) => {
     const faveService = new FavePetService();
     const user = await faveService.execute(request.body.user.id, request.params.id);
     delete user.password;
-    console.log('unfaved', user.favorite_pets)
     return response.json(user);
 });
 
@@ -166,22 +165,21 @@ usersRouter.post('/unfave/:id', async ( request, response ) => {
     const unFavePetService = new UnFavePetService();
     const user = await unFavePetService.execute(request.body.user.id, request.params.id);
     delete user.password;
-    console.log('unfaved', user.favorite_pets)
     return response.json(user);
 });
 
-usersRouter.post('/askadoption/:id', ensureAuthenticated, async ( request, response ) => {
+usersRouter.post('/askadoption/:id', async ( request, response ) => {
 
     const askAdoptionService = new AskAdoptionPetService();
-    const user = await askAdoptionService.execute(request.user.id, request.params.id);
+    const user = await askAdoptionService.execute(request.body.user.id, request.params.id);
     delete user.password;
     return response.json(user);
 });
 
-usersRouter.post('/unaskadoption/:id', ensureAuthenticated, async ( request, response ) => {
+usersRouter.post('/unaskadoption/:id', async ( request, response ) => {
 
     const unAskAdoptionService = new UnAskAdoptionPetService();
-    const user = await unAskAdoptionService.execute(request.user.id, request.params.id);
+    const user = await unAskAdoptionService.execute(request.body.user.id, request.params.id);
     delete user.password;
     return response.json(user);
 });
