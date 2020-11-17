@@ -89,8 +89,10 @@ const PetDetails: React.FC = () => {
       const token = await AsyncStorage.getItem('@QueroPet:token');
       if (isFavorite) {
         await api.post(`/users/unfave/${pet.id}`, { "user": user}, { headers: { Authorization: `Bearer ${token}` }}, );
+        setIsFavorite(false);
       } else {
         await api.post(`/users/fave/${pet.id}`, {"user": user}, { headers: { Authorization: `Bearer ${token}`}}, );
+        setIsFavorite(true);
       }
     } catch (err) {
       console.log(err)
