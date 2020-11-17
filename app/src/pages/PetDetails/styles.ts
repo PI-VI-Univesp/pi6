@@ -48,9 +48,17 @@ export const PetContent = styled.View`
 export const PetTitle = styled.Text`
   font-family: 'Poppins-Regular';
   font-weight: 600;
-  font-size: 20px;
+  font-size: 32px;
   line-height: 32px;
   color: #3d3d4d;
+`;
+
+export const Label = styled.Text`
+  font-family: 'Poppins-Regular';
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 32px;
+  color: #5d5d5d;
 `;
 
 export const PetDescription = styled.Text`
@@ -60,8 +68,22 @@ export const PetDescription = styled.Text`
   font-size: 15px;
   line-height: 25px;
   margin-top: 8px;
+  margin-bottom: 20px;
   color: #3d3d4d;
 `;
+
+export const PetText = styled.Text`
+  font-family: 'Poppins-Regular';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 25px;
+  margin-top: 8px;
+  margin-bottom: 14px;
+  margin-left: 10px;
+  color: #2d2d3d;
+`;
+
 
 export const Title = styled.Text`
   font-family: Poppins;
@@ -81,7 +103,6 @@ export const PetButton = styled.TouchableOpacity`
   align-items: center;
   margin-top: 24px;
   text-decoration: none;
-
 `;
 
 export const PetButtonText = styled.Text`    

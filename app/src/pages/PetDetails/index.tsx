@@ -14,6 +14,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useAuth, AuthProvider } from '../../hooks/auth';
 import api from '../../services/api';
 
+
 import {
   Container,
   Header,
@@ -26,6 +27,8 @@ import {
   PetDescription,
   PetButton,
   PetButtonText,
+  Label,
+  PetText
 } from './styles';
 
 interface User {
@@ -148,6 +151,7 @@ const PetDetails: React.FC = () => {
       ),
     });
   }, [navigation, favoriteIconName, toggleFavorite]);
+  const gender = pet.gender === "F" ? "Fêmea" : "Macho";
 
   return (
     <Container>
@@ -164,20 +168,18 @@ const PetDetails: React.FC = () => {
             </PetImageContainer>
             <PetContent>
               <PetTitle>{pet.name}</PetTitle>
-
               <PetDescription>{pet.info}</PetDescription>
-              <PetTitle>espécie</PetTitle>
-              <PetDescription>{pet.species}</PetDescription>
-              <PetTitle>Nascimento</PetTitle>
-              <PetDescription>{ pet.birth_day }</PetDescription>
-              <PetTitle>raça</PetTitle>
-              <PetDescription>{pet.breed}</PetDescription>
-              <PetTitle>Sexo</PetTitle>
-              <PetDescription>{ pet.gender }</PetDescription>
-              <PetTitle>Pelagem</PetTitle>
-              <PetDescription>{  pet.coat }</PetDescription>
-              <PetTitle>Informações</PetTitle>
-              <PetDescription>{ pet.info }</PetDescription>
+              <Label>Nascimento</Label>
+              <PetText>{ pet.birth_day }</PetText>
+              <Label>Raça</Label>
+              <PetText>{pet.breed}</PetText>
+              <Label>Sexo</Label>
+              <PetText>{ gender }</PetText>
+              <Label>Pelagem</Label>
+              <PetText>{  pet.coat }</PetText>
+              <Label>Informações</Label>
+              <PetText>{ pet.info }</PetText>
+              
               <PetButton onPress={() => toggleCandidate()}  style={askForAdoptionBgColor}><PetButtonText>{askForAdoptionText}</PetButtonText></PetButton>
             </PetContent>
           </Pet>
