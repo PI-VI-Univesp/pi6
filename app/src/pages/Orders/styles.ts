@@ -3,6 +3,8 @@ import { FlatList } from 'react-native';
 import { ButtonHTMLAttributes } from 'react';
 
 export const Header = styled.View`
+  width: 100%;
+  height: 80px;
   padding: 40px 24px 40px;
   background: #ffb84d;
   display: flex;

@@ -84,7 +84,7 @@ const Home: React.FC = () => {
     return (
         <Container>
         <Header>
-          <Image style={{height: 80}} source={Logo} />
+          <Image style={{height: 80 }} source={Logo} />
           <Icon
             name="log-out"
             size={24}
@@ -104,7 +104,9 @@ const Home: React.FC = () => {
               <Pet key={item.id} onPress={() => handleNavigate(item.id)}>
                 <PetImage source={{uri: "https://source.unsplash.com/user/erondu/600x400" }} />
                 <PetTitle>{item.name}</PetTitle>
-                <PetDescription>lorem ipsum lasdf lasd asdf lllas dfoasdf sad fsadfl</PetDescription>
+                <PetTitle>{item.gender}</PetTitle>
+                <PetTitle>{item.species}</PetTitle>
+                <PetDescription>{item.info}</PetDescription>
                 <PetButton><Text>Favoritar</Text></PetButton>
               </Pet>
             )}
