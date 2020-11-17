@@ -72,7 +72,7 @@ export const PetDescription = styled.Text`
 `;
 
 export const PetTitle = styled.Text`
-  font-size: 14px;
+  font-size: 24px;
   margin-top: 10px;
 `;
 

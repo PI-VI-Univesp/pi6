@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons'
 import Logo from '../../assets/logo.png';
 import { useNavigation } from '@react-navigation/native';
 import  api from '../../services/api';
@@ -8,12 +10,6 @@ import { useAuth } from '../../hooks/auth';
 import { 
     Text,
     Image,
-    View,
-    ScrollView,
-    KeyboardAvoidingView ,
-    Platform,
-    TextInput, 
-    Alert
 } from 'react-native';
 
 import {
@@ -94,17 +90,20 @@ const Orders: React.FC = () => {
             ListFooterComponentStyle={{
               height: 80,
             }}
-            renderItem={({item}) => (
-              <Pet key={item.id} onPress={() => handleNavigate(item.id)}>
-                <PetImage source={{uri: "https://source.unsplash.com/user/erondu/600x400" }} />
-                <PetTitle>{item.name}</PetTitle>
-                <PetDescription>lorem ipsum lasdf lasd asdf lllas dfoasdf sad fsadfl</PetDescription>
-                <PetButton><Text>Favoritar</Text></PetButton>
-                <PetButton><Text>Adotar</Text></PetButton>
-                <PetButton><Text>Editar</Text></PetButton>
-              </Pet>
-            )}
-          />
+            renderItem={({item}) => { 
+              let genderIcon = faVenus;
+              
+              if(item.gender === "M"){
+                genderIcon = faMars;
+              }
+
+              return(
+                <Pet key={item.id} onPress={() => handleNavigate(item.id)}>
+                  <PetImage source={{uri: "https://source.unsplash.com/user/erondu/600x400" }} />
+                    <PetTitle>{item.name}<FontAwesomeIcon icon={ genderIcon } size={24}/></PetTitle>
+                  <PetDescription>{item.info}</PetDescription>
+                </Pet>
+            )}}/>
         </PetContainer>
       </Container>
     );

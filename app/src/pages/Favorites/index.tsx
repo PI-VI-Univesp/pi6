@@ -1,5 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons'
 import Logo from '../../assets/logo.png';
 import { useNavigation } from '@react-navigation/native';
 import  api from '../../services/api';
@@ -52,6 +54,7 @@ interface Pet {
 }
 
 const Favorite: React.FC = () => {
+  
     const { signOut, user } = useAuth();
     const navigation = useNavigation();
     const [ pets, setPets ] = useState<Pet[]>(() => {
@@ -67,9 +70,11 @@ const Favorite: React.FC = () => {
         id,
       });
     }
-  
-
+    useLayoutEffect(()=>{
+      console.log('fav')
+    },[pets]);
     useEffect(()=>{
+      console.log('fav')
       async function loadPet(): Promise<void> {
         const user_data = await api.get(`/users/${user.id}`);
         setPets(user_data.data.favorite_pets);
@@ -96,14 +101,20 @@ const Favorite: React.FC = () => {
             ListFooterComponentStyle={{
               height: 80,
             }}
-            renderItem={({item}) => (
+            renderItem={({item}) => { 
+              let genderIcon = faVenus;
+              
+              if(item.gender === "M"){
+                genderIcon = faMars;
+              }
+
+              return(
               <Pet key={item.id} onPress={() => handleNavigate(item.id)}>
                 <PetImage source={{uri: "https://source.unsplash.com/user/erondu/600x400" }} />
-                <PetTitle>{item.name}</PetTitle>
-                <PetDescription>lorem ipsum lasdf lasd asdf lllas dfoasdf sad fsadfl</PetDescription>
+                  <PetTitle>{item.name}<FontAwesomeIcon icon={ genderIcon } size={24}/></PetTitle>
+                <PetDescription>{item.info}</PetDescription>
               </Pet>
-            )}
-          />
+            )}}/>
         </PetContainer>
       </Container>
     );

@@ -1,19 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons'
 import Logo from '../../assets/logo.png';
 import { useNavigation } from '@react-navigation/native';
 import  api from '../../services/api';
 import { useAuth } from '../../hooks/auth';
 
 import { 
-    Text,
     Image,
-    View,
-    ScrollView,
-    KeyboardAvoidingView ,
-    Platform,
-    TextInput, 
-    Alert
 } from 'react-native';
 
 import {
@@ -24,7 +19,6 @@ import {
     Pet,
     PetTitle,
     PetDescription,
-    PetButton,
     Header
   } from './styles';
 
@@ -55,10 +49,6 @@ const Home: React.FC = () => {
     const { signOut } = useAuth();
     const navigation = useNavigation();
     const [ pets, setPets ] = useState<Pet[]>(() => {
-        /*const storagedPets = localStorage.getItem('@QueroPet:pets');
-        if (storagedPets){
-            return JSON.parse(storagedPets);
-        }*/
         return [];
     });
 
@@ -67,18 +57,13 @@ const Home: React.FC = () => {
         id,
       });
     }
-  
 
     useEffect(()=>{
         async function loadPets(): Promise<void> {
             const response = await api.get(`pets/`);
             setPets(response.data);
-            
         }
-        
-       
         loadPets();
-
     },[]);
 
     return (
@@ -100,19 +85,23 @@ const Home: React.FC = () => {
             ListFooterComponentStyle={{
               height: 80,
             }}
-            renderItem={({item}) => (
-              <Pet key={item.id} onPress={() => handleNavigate(item.id)}>
-                <PetImage source={{uri: "https://source.unsplash.com/user/erondu/600x400" }} />
-                <PetTitle>{item.name}</PetTitle>
-                <PetTitle>{item.gender}</PetTitle>
-                <PetTitle>{item.species}</PetTitle>
-                <PetDescription>{item.info}</PetDescription>
-                <PetButton><Text>Favoritar</Text></PetButton>
-              </Pet>
-            )}
-          />
+            renderItem={({item}) => { 
+              let genderIcon = faVenus;
+              
+              if(item.gender === "M"){
+                genderIcon = faMars;
+              }
+
+              return(
+                <Pet key={item.id} onPress={() => handleNavigate(item.id)}>
+                  <PetImage source={{uri: "https://source.unsplash.com/user/erondu/600x400" }} />
+                    <PetTitle>{item.name}<FontAwesomeIcon icon={ genderIcon } size={24}/></PetTitle>
+                  <PetDescription>{item.info}</PetDescription>
+                </Pet>
+            )}}/>
+          
         </PetContainer>
       </Container>
-    );
-}
+    )}
+
 export default Home;
