@@ -29,6 +29,19 @@ usersRouter.get('/', async (request, response) => {
   return response.json(users);
 });
 
+usersRouter.get('/:id', async (request, response) => {
+    const userRepository = getRepository(User);
+    const usersAllData = await userRepository.find({relations: ["favorite_pets", "candidate_pets"]});
+
+    const user = await (await userRepository.findOne(
+        {
+            where: { id: request.params.id }
+        }
+    ));
+    const { id, name, type, phone_type, phone, info, email, birthday, street, complement, number, neightborhood, city, state, zipcode, social_id, social_id_type, avatar, favorite_pets, candidate_pets } = user
+    return response.json({ id, name, type, phone_type, phone, info, email, birthday, street, complement, number, neightborhood, city, state, zipcode, social_id, social_id_type, avatar, favorite_pets, candidate_pets });
+  });
+
 usersRouter.get('/candidate/:id', async (request, response) => {
     const userRepository = getRepository(User);
     const usersAllData = await userRepository.find({relations: ["favorite_pets", "candidate_pets"]});
@@ -141,19 +154,19 @@ usersRouter.patch('/avatar', ensureAuthenticated, upload.single('avatar'), async
 
 } );
 
-usersRouter.post('/fave/:id', ensureAuthenticated, async ( request, response ) => {
-
-        const faveService = new FavePetService();
-        const user = await faveService.execute(request.user.id, request.params.id);
-        delete user.password;
-        return response.json(user);
+usersRouter.post('/fave/:id', async ( request, response ) => {
+    const faveService = new FavePetService();
+    const user = await faveService.execute(request.body.user.id, request.params.id);
+    delete user.password;
+    console.log('unfaved', user.favorite_pets)
+    return response.json(user);
 });
 
-usersRouter.post('/unfave/:id', ensureAuthenticated, async ( request, response ) => {
-
+usersRouter.post('/unfave/:id', async ( request, response ) => {
     const unFavePetService = new UnFavePetService();
-    const user = await unFavePetService.execute(request.user.id, request.params.id);
+    const user = await unFavePetService.execute(request.body.user.id, request.params.id);
     delete user.password;
+    console.log('unfaved', user.favorite_pets)
     return response.json(user);
 });
 
