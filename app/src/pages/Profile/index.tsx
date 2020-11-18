@@ -18,6 +18,7 @@ import * as Yup from 'yup';
 import api from '../../services/api';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Logo from '../../assets/logo.png';
+import { useAuth } from '../../hooks/auth';
 
 import { 
     Header,
@@ -38,28 +39,31 @@ interface SignUpFormData {
     password: string;
 }
 
-const SignUp: React.FC = () => {
+const EditProfile: React.FC = () => {
+    const { user } = useAuth();
+
     const formRef = useRef<FormHandles>(null);
     const navigation = useNavigation();
     const [selectedValue, setSelectedValue] = useState();
 
     const emailInputRef = useRef<TextInput>(null);
     const passwordInputRef = useRef<TextInput>(null);
-    const handleSignUp = useCallback( async (data: object) => {
+    const handleEditProfile = useCallback( async (data: object) => {
         try {
             data["type"] = selectedValue;
             formRef.current?.setErrors({});
+            /*
             const schema = Yup.object().shape({
                 name: Yup.string().required('Nome obrigatório'),
                 email: Yup.string().required('Email obrigatório').email("Digite um e-mail válido"),
                 password: Yup.string().min(6, 'No mínimo 6 dígitos'),
-            });
-            await schema.validate(data, {
+            });*/
+            /*await schema.validate(data, {
                 abortEarly: false,
             });
-
-            await api.post('/users', data);
-            Alert.alert('Cadastro realizado com sucesso !', 'Você já pode fazer login na aplicação');
+            */
+            await api.put(`/users/${user.id}`, data);
+            Alert.alert('Cadastro atualizado com sucesso !');
             navigation.goBack();
 
         } catch (err) {
@@ -106,12 +110,13 @@ const SignUp: React.FC = () => {
                    
                 <Container>
                 <Title>Editar Perfil</Title>
-                    <Form ref={formRef} onSubmit={handleSignUp}>
+                    <Form ref={formRef} onSubmit={handleEditProfile}>
                         <Input 
                             autoCapitalize="words" 
                             name="name" 
                             icon="user" 
-                            placeholder="Nome"  
+                            placeholder="Nome"
+                            defaultValue={user.name}
                             returnKeyType="next"
                             onSubmitEditing={() => { 
                                 emailInputRef.current?.focus();
@@ -121,6 +126,7 @@ const SignUp: React.FC = () => {
                             autoCapitalize="words" 
                             name="social_id" 
                             icon="layers" 
+                            defaultValue={user.social_id}
                             placeholder="CPF"  
                             returnKeyType="next"
                             onSubmitEditing={() => { 
@@ -130,7 +136,8 @@ const SignUp: React.FC = () => {
                         <Input 
                             autoCapitalize="words" 
                             name="info" 
-                            icon="info" 
+                            icon="info"
+                            defaultValue={user.info}
                             placeholder="Informações"  
                             returnKeyType="next"
                             onSubmitEditing={() => { 
@@ -141,7 +148,8 @@ const SignUp: React.FC = () => {
                             autoCapitalize="words" 
                             name="phone" 
                             icon="phone" 
-                            placeholder="Telefone"  
+                            placeholder="Telefone"
+                            defaultValue={user.phone}
                             returnKeyType="next"
                             onSubmitEditing={() => { 
                                 emailInputRef.current?.focus();
@@ -151,7 +159,8 @@ const SignUp: React.FC = () => {
                             autoCapitalize="words" 
                             name="street" 
                             icon="map-pin" 
-                            placeholder="Rua"  
+                            placeholder="Rua"
+                            defaultValue={user.street}
                             returnKeyType="next"
                             onSubmitEditing={() => { 
                                 emailInputRef.current?.focus();
@@ -162,6 +171,7 @@ const SignUp: React.FC = () => {
                             name="number" 
                             icon="map-pin" 
                             placeholder="Número"  
+                            defaultValue={user.number}
                             returnKeyType="next"
                             onSubmitEditing={() => { 
                                 emailInputRef.current?.focus();
@@ -171,6 +181,7 @@ const SignUp: React.FC = () => {
                             autoCapitalize="words" 
                             name="complement" 
                             icon="map-pin" 
+                            defaultValue={user.complement}
                             placeholder="Complemento"  
                             returnKeyType="next"
                             onSubmitEditing={() => { 
@@ -179,9 +190,10 @@ const SignUp: React.FC = () => {
                         />
                         <Input 
                             autoCapitalize="words" 
-                            name="neighborhood" 
+                            name="neightborhood" 
                             icon="map-pin" 
-                            placeholder="Bairro"  
+                            placeholder="Bairro"
+                            defaultValue={user.neightborhood}
                             returnKeyType="next"
                             onSubmitEditing={() => { 
                                 emailInputRef.current?.focus();
@@ -191,7 +203,8 @@ const SignUp: React.FC = () => {
                             autoCapitalize="words" 
                             name="city" 
                             icon="map-pin" 
-                            placeholder="Cidade"  
+                            placeholder="Cidade"
+                            defaultValue={user.city}
                             returnKeyType="next"
                             onSubmitEditing={() => { 
                                 emailInputRef.current?.focus();
@@ -201,7 +214,8 @@ const SignUp: React.FC = () => {
                             autoCapitalize="words" 
                             name="state" 
                             icon="map-pin" 
-                            placeholder="Estado"  
+                            placeholder="Estado"
+                            defaultValue={user.state}
                             returnKeyType="next"
                             onSubmitEditing={() => { 
                                 emailInputRef.current?.focus();
@@ -211,21 +225,12 @@ const SignUp: React.FC = () => {
                             autoCapitalize="words" 
                             name="zip" 
                             icon="map-pin" 
-                            placeholder="CEP"  
+                            placeholder="CEP"
+                            defaultValue={user.zipcode}
                             returnKeyType="next"
                             onSubmitEditing={() => { 
                                 emailInputRef.current?.focus();
                             }}
-                        />
-                        <Input 
-                            ref={passwordInputRef}
-                            secureTextEntry 
-                            name="password" 
-                            textContentType="newPassword" 
-                            icon="lock" 
-                            placeholder="Senha" 
-                            returnKeyType="send" 
-                            onSubmitEditing={() => { formRef.current.submitForm();}}
                         />
                         
                     </Form>
@@ -242,4 +247,4 @@ const SignUp: React.FC = () => {
     
 };
 
-export default SignUp;
+export default EditProfile;
