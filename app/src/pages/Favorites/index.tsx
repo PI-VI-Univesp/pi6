@@ -5,7 +5,7 @@ import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons'
 import Logo from '../../assets/logo.png';
 import { useNavigation } from '@react-navigation/native';
 import  api from '../../services/api';
-import { useAuth } from '../../hooks/auth';
+import { useAuth, signOut } from '../../hooks/auth';
 
 import { 
     Text,
@@ -90,7 +90,7 @@ const Favorite: React.FC = () => {
             name="log-out"
             size={24}
             color="#333"
-            onPress={() => navigation.navigate('Home')}
+            onPress={signOut}
           />
         </Header>
         <PetContainer>

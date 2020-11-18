@@ -18,7 +18,7 @@ import * as Yup from 'yup';
 import api from '../../services/api';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Logo from '../../assets/logo.png';
-import { useAuth } from '../../hooks/auth';
+import { useAuth, signOut } from '../../hooks/auth';
 
 import { 
     Header,
@@ -93,7 +93,7 @@ const EditProfile: React.FC = () => {
             name="log-out"
             size={24}
             color="#333"
-            onPress={() => navigation.navigate('Home')}
+            onPress={signOut}
           />
         </Header>
         
