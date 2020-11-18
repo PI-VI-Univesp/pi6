@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import Dashboard from '../pages/Dashboard';
 import Orders from '../pages/Orders';
 import Favorites from '../pages/Favorites';
+import Profile from '../pages/Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -50,6 +51,16 @@ const TabRoutes: React.FC = () => (
         title: 'Favoritos',
       }}
       component={Favorites}
+    />
+    <Tab.Screen
+      name="Profile"
+      options={{
+        tabBarIcon: ({ color }) => (
+          <Icon size={25} name="user" color={color} />
+        ),
+        title: 'Perfil',
+      }}
+      component={Profile}
     />
   </Tab.Navigator>
 );
