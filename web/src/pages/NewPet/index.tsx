@@ -1,11 +1,9 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
-import { useParams } from "react-router";
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { Container, Content, AnimationContainer, Background, Image } from './styles';
-import { useAuth, AuthProvider } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 import Input from '../../components/Input';
 import TextArea from '../../components/TextArea';
@@ -16,7 +14,7 @@ import api from '../../services/api';
 import { FaBirthdayCake, FaCat, FaDog } from "react-icons/fa";
 import { MdPets } from "react-icons/md";
 import MainMenu from '../../components/MainMenu';
-import { AiOutlineFieldNumber, AiOutlineInfoCircle } from "react-icons/ai";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 interface User {
     id: string;
