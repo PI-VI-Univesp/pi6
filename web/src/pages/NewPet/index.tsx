@@ -174,12 +174,6 @@ const NewPet: React.FC = () => {
                 <AnimationContainer>
                     <Form ref={formRef} onSubmit={handleSubmit}>
                         <h1><span>Cadastro pet</span></h1>
-                        <div className="item">
-                            <Image src={'https://source.unsplash.com/user/erondu/600x400'}></Image>
-                            <input type="file" id="file" name="filename" value="" />
-                            <Button type="submit" name="sendPhoto" className="button button2">enviar</Button>
-                        </div>
-
 
                         <div className="item" style={{ maxWidth: '600px' }}>
                             <span className="titleItemCard">nome </span>
