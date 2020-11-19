@@ -18,7 +18,7 @@ import * as Yup from 'yup';
 import api from '../../services/api';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Logo from '../../assets/logo.png';
-import { useAuth, signOut } from '../../hooks/auth';
+import { useAuth } from '../../hooks/auth';
 
 import { 
     Header,
@@ -37,10 +37,20 @@ interface SignUpFormData {
     name: string;
     email: string;
     password: string;
+    phone: string;   
+    city: string;   
+    state: string;   
+    social_id: string;   
+    info: string;   
+    street: string;   
+    number: string;   
+    complement: string;   
+    neightborhood: string;   
+
 }
 
 const EditProfile: React.FC = () => {
-    const { user } = useAuth();
+    const { user , signOut} = useAuth();
 
     const formRef = useRef<FormHandles>(null);
     const navigation = useNavigation();
@@ -52,16 +62,24 @@ const EditProfile: React.FC = () => {
         try {
             data["type"] = selectedValue;
             formRef.current?.setErrors({});
-            /*
+            
             const schema = Yup.object().shape({
                 name: Yup.string().required('Nome obrigatório'),
-                email: Yup.string().required('Email obrigatório').email("Digite um e-mail válido"),
-                password: Yup.string().min(6, 'No mínimo 6 dígitos'),
-            });*/
-            /*await schema.validate(data, {
+                phone: Yup.string().required('Telefone obrigatório'),
+                city: Yup.string().required('Cidade Obrigatória'),
+                state: Yup.string().required('Estado obrigatório'),
+                social_id: Yup.string(),
+                info: Yup.string(),
+                street: Yup.string(),
+                number: Yup.string(),
+                complement: Yup.string(),
+                neightborhood: Yup.string(),
+                password: Yup.string()
+            });
+            await schema.validate(data, {
                 abortEarly: false,
             });
-            */
+            
             await api.put(`/users/${user.id}`, data);
             Alert.alert('Cadastro atualizado com sucesso !');
             navigation.goBack();
@@ -118,9 +136,7 @@ const EditProfile: React.FC = () => {
                             placeholder="Nome"
                             defaultValue={user.name}
                             returnKeyType="next"
-                            onSubmitEditing={() => { 
-                                emailInputRef.current?.focus();
-                            }}
+
                         />
                         <Input 
                             autoCapitalize="words" 
@@ -129,9 +145,7 @@ const EditProfile: React.FC = () => {
                             defaultValue={user.social_id}
                             placeholder="CPF"  
                             returnKeyType="next"
-                            onSubmitEditing={() => { 
-                                emailInputRef.current?.focus();
-                            }}
+
                         />
                         <Input 
                             autoCapitalize="words" 
@@ -140,9 +154,7 @@ const EditProfile: React.FC = () => {
                             defaultValue={user.info}
                             placeholder="Informações"  
                             returnKeyType="next"
-                            onSubmitEditing={() => { 
-                                emailInputRef.current?.focus();
-                            }}
+
                         />
                        <Input 
                             autoCapitalize="words" 
@@ -151,9 +163,7 @@ const EditProfile: React.FC = () => {
                             placeholder="Telefone"
                             defaultValue={user.phone}
                             returnKeyType="next"
-                            onSubmitEditing={() => { 
-                                emailInputRef.current?.focus();
-                            }}
+
                         />
                         <Input 
                             autoCapitalize="words" 
@@ -162,9 +172,7 @@ const EditProfile: React.FC = () => {
                             placeholder="Rua"
                             defaultValue={user.street}
                             returnKeyType="next"
-                            onSubmitEditing={() => { 
-                                emailInputRef.current?.focus();
-                            }}
+  
                         />
                         <Input 
                             autoCapitalize="words" 
@@ -173,9 +181,7 @@ const EditProfile: React.FC = () => {
                             placeholder="Número"  
                             defaultValue={user.number}
                             returnKeyType="next"
-                            onSubmitEditing={() => { 
-                                emailInputRef.current?.focus();
-                            }}
+
                         />
                         <Input 
                             autoCapitalize="words" 
@@ -184,9 +190,7 @@ const EditProfile: React.FC = () => {
                             defaultValue={user.complement}
                             placeholder="Complemento"  
                             returnKeyType="next"
-                            onSubmitEditing={() => { 
-                                emailInputRef.current?.focus();
-                            }}
+
                         />
                         <Input 
                             autoCapitalize="words" 
@@ -195,9 +199,7 @@ const EditProfile: React.FC = () => {
                             placeholder="Bairro"
                             defaultValue={user.neightborhood}
                             returnKeyType="next"
-                            onSubmitEditing={() => { 
-                                emailInputRef.current?.focus();
-                            }}
+
                         />
                         <Input 
                             autoCapitalize="words" 
@@ -206,9 +208,7 @@ const EditProfile: React.FC = () => {
                             placeholder="Cidade"
                             defaultValue={user.city}
                             returnKeyType="next"
-                            onSubmitEditing={() => { 
-                                emailInputRef.current?.focus();
-                            }}
+
                         />
                         <Input 
                             autoCapitalize="words" 
@@ -217,20 +217,16 @@ const EditProfile: React.FC = () => {
                             placeholder="Estado"
                             defaultValue={user.state}
                             returnKeyType="next"
-                            onSubmitEditing={() => { 
-                                emailInputRef.current?.focus();
-                            }}
+
                         />
                         <Input 
                             autoCapitalize="words" 
-                            name="zip" 
+                            name="zipcode" 
                             icon="map-pin" 
                             placeholder="CEP"
                             defaultValue={user.zipcode}
                             returnKeyType="next"
-                            onSubmitEditing={() => { 
-                                emailInputRef.current?.focus();
-                            }}
+
                         />
                         
                     </Form>
