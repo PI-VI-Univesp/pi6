@@ -121,3 +121,18 @@ try{
 }
 
 } );
+
+petsRouter.delete('/:id', ensureAuthenticated  ,async (request, response) => {
+
+    const petRepo = getRepository(Pet);
+
+    const pet = await petRepo.findOne(request.params.id);
+
+    if (!pet) {
+        throw new AppError('Pet not found', 401);
+    }
+
+    await petRepo.remove(pet);
+ return response.json({ "msg": "removed"});
+
+});
