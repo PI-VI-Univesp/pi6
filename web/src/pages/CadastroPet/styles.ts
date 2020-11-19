@@ -233,7 +233,7 @@ export const AvatarInput = styled.div`
   position: relative;
   align-self: center;
   max-width: 200px;
-
+  margin-left: 200px;
   img {
     width: 186px;
     height: 186px;
