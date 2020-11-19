@@ -11,11 +11,14 @@ const CardHeader: React.FC<CardHeaderProps> = ({image,header_name, ...rest}) => 
     {
         background: 'url(' + image + ')',
         height: '350px',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center, center',
+        backgroundSize: '100%',
     };
     return (
 
         <Container  style={style} >
-        <HeaderTitle>{header_name}</HeaderTitle>
+        <HeaderTitle></HeaderTitle>
     </Container>
     );
 }
