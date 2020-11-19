@@ -141,11 +141,7 @@ const CadastroInstituicao: React.FC = () => {
                 <AnimationContainer>
                     <Form ref={formRef} onSubmit={handleSubmit}>
                         <h1><span>meu Cadastro</span></h1>
-                        <div className="item" >
-                            <Image src={'https://source.unsplash.com/user/erondu/600x400'}></Image>
-                            <input type="file" id="file" name="filename" value="" />
-                            <Button type="submit" name="sendPhoto" className="button button2">enviar</Button>
-                        </div>
+
                         <h3><span>Dados</span></h3>
                         <div className="item" style={{ maxWidth: '600px' }}>
                             <span>Nome</span>
