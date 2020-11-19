@@ -21,7 +21,7 @@ interface User {
     id: string;
     name: string;
     phone: string;
-    email: string;    
+    email: string;
 }
 
 
@@ -46,8 +46,8 @@ const PedidosAdocao: React.FC = () => {
     const location = useLocation();
     const tipoPesquisa = location.pathname.split('/')[2];
 
-    const [ pets, setPets ] = useState<Pet[]>(() => {                
-        const storagedPets = localStorage.getItem('@QueroPet:pets');        
+    const [ pets, setPets ] = useState<Pet[]>(() => {
+        const storagedPets = localStorage.getItem('@QueroPet:pets');
         if (storagedPets){
             return JSON.parse(storagedPets);
         }
@@ -67,32 +67,18 @@ const PedidosAdocao: React.FC = () => {
 
 
 
-    function getListaPets(){        
-//*ajustar  para trazer somente pets que possuem 
+    function getListaPets(){
+//*ajustar  para trazer somente pets que possuem
 //registros no campo has_asked_for_adoption*/
-        //return pets.filter( (p) => (p.institution.id === user.id && p.has_asked_for_adoption !== null));         
-        return pets.filter( (p) => (p.institution.id === user.id));         
+        //return pets.filter( (p) => (p.institution.id === user.id && p.has_asked_for_adoption !== null));
+        return pets.filter( (p) => (p.institution.id === user.id));
     }
     const listaPets = getListaPets();
 
     return(
 
         <Container>
-            <MainMenu>
-            <img className="logo" src={logoImg} alt="QueroPet" />
-                <h1 className="title">Cadastro</h1>
-                
-                <ul>
-                    <li><Link to='/cadastroInstituicao'>Meu Cadastro</Link></li>
-                    <li><Link to='/alterarsenha'>Alterar Senha</Link></li>
-                </ul>
-                <h1>Pets</h1>
-                <ul>
-                    <li><Link to='/novoPet'>Adicionar Novo Pet</Link></li>
-                    <li><Link to='/'>Meus Pets</Link></li>
-                    <li><Link to='/pedidosadocao'>Pedidos de Adoção</Link></li>
-                </ul>
-            </MainMenu>
+            <MainMenu/>
             <Content>
             { listaPets.map( pet => (
                     <CardAdoption
@@ -101,12 +87,12 @@ const PedidosAdocao: React.FC = () => {
                     name={pet.name}
                     breed ={pet.breed}
                     species={pet.species}
-                    gender={pet.gender} 
-                    birth_day={pet.birth_day}                   
+                    gender={pet.gender}
+                    birth_day={pet.birth_day}
                     adoption={ pet.has_asked_for_adoption}
                     />
-                ))}                   
-            </Content>               
+                ))}
+            </Content>
         </Container>
     )
 }

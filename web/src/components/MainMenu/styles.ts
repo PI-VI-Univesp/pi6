@@ -4,15 +4,17 @@ export const Menu = styled.div`
     display: flex;
     flex-direction: column;
     align-items: initial;
-    
+
     ul{
         list-style-type:none;
     }
     li{
         margin-top: 10px;
     }
-    h1{
-    margin-top: 20px;    
+    h3{
+    margin-top: 60px;
+    margin-bottom: 15px;
+    color: brown;
     }
 
     @media(max-width: 800px) {

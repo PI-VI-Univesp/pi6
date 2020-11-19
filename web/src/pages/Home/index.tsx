@@ -4,7 +4,7 @@ import { Container, Content } from './styles';
 import  Card  from '../../components/Card';
 import  MainMenu  from '../../components/MainMenu';
 import  api from '../../services/api';
-import logoImg from '../../assets/logo.svg';
+
 
 interface PetParams {
     pet: string;
@@ -67,22 +67,7 @@ const Home: React.FC = () => {
     return(
 
         <Container>
-            <MainMenu>
-            <img className="logo" src={logoImg} alt="QueroPet" />
-                <h1 className="title">Cadastro</h1>
-
-                <ul>
-                    <li><Link to='/cadastroInstituicao'>Meu Cadastro</Link></li>
-                    <li><Link to='/alterarsenha'>Alterar Senha</Link></li>
-                </ul>
-                <h1>Pets</h1>
-                <ul>
-                    <li><Link to='/novoPet'>Adicionar Novo Pet</Link></li>
-                    <li><Link to='/'>Meus Pets</Link></li>
-                    <li><Link to='/home/pedidosadocao'>Pedidos de Adoção</Link></li>
-                </ul>
-            </MainMenu>
-
+            <MainMenu/>
             <Content>
                 { listaPets.map( pet => (
                     <Card

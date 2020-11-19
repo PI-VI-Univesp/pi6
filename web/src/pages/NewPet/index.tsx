@@ -152,24 +152,7 @@ const NewPet: React.FC = () => {
 
     return (
         <Container>
-            <MainMenu>
-
-            <img className="logo" src={logoImg} alt="QueroPet" />
-                <h1 className="title">Cadastro</h1>
-
-                <ul>
-                    <li><Link to='/cadastroInstituicao'>Meu Cadastro</Link></li>
-                    <li><Link to='/cadastroInstituicao'>Alterar Senha</Link></li>
-                </ul>
-                <h1>Pets</h1>
-                <ul>
-                    <li><Link to='/novoPet'>Adicionar Novo Pet</Link></li>
-                    <li><Link to='/'>Meus Pets</Link></li>
-                    <li><Link to='/'>Pedidos de Adoção</Link></li>
-                </ul>
-
-
-            </MainMenu>
+            <MainMenu/>
             <Content>
                 <AnimationContainer>
                     <Form ref={formRef} onSubmit={handleSubmit}>

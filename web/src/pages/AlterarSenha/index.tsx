@@ -67,21 +67,7 @@ const AlterarSenha: React.FC = () => {
 
     return (
         <Container>
-            <MainMenu>
-
-                <h1 className="title">Cadastro</h1>
-
-                <ul>
-                    <li><Link to='/cadastroInstituicao'>Meu Cadastro</Link></li>
-                    <li><Link to='/AlterarSenha'>Alterar Senha</Link></li>
-                </ul>
-                <h1>Pets</h1>
-                <ul>
-                    <li><Link to='/'>Adicionar Novo Pet</Link></li>
-                    <li><Link to='/'>Meus Pets</Link></li>
-                    <li><Link to='/'>Pedidos de Adoção</Link></li>
-                </ul>
-            </MainMenu>
+            <MainMenu/>
             <Content>
                 <AnimationContainer>
                     <h1><span>Alterar senha</span></h1>
