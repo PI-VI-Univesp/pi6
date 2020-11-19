@@ -43,7 +43,7 @@ const CardBody: React.FC<CardBodyProps> = ({pet_id, date, name, info, has_faved_
 
 
 
-    instituição:  <BodyContent> <strong>{institution.name}, {institution.city} - {institution.state}</strong></BodyContent>
+    <label>informações:</label>  <BodyContent>{info}</BodyContent>
 
     <ButtonPanel>
 

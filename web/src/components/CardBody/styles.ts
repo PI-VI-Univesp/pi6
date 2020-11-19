@@ -20,7 +20,7 @@ export const Container = styled.div`
         float: right;
     }
     .invisible{
-        display: none;        
+        display: none;
     }
 
 `;
@@ -38,6 +38,7 @@ export const BodyContent = styled.p`
     font-size: 16px;
     font-weight: 600;
     color: grey;
+    margin-top: 20px;
     margin-bottom: 20px;
 `;
 
