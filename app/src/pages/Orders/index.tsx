@@ -45,6 +45,7 @@ interface Pet {
     institution: Institution;
     species: string;
     gender: string;
+    avatar_url: string;
 }
 
 const Orders: React.FC = () => {
@@ -99,7 +100,7 @@ const Orders: React.FC = () => {
 
               return(
                 <Pet key={item.id} onPress={() => handleNavigate(item.id)}>
-                  <PetImage source={{uri: "https://source.unsplash.com/user/erondu/600x400" }} />
+                  <PetImage source={{uri: "http://localhost:3333/files/"+item.avatar}} />
                     <PetTitle>{item.name}<FontAwesomeIcon icon={ genderIcon } size={24}/></PetTitle>
                   <PetDescription>{item.info}</PetDescription>
                 </Pet>

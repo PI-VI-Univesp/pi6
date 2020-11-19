@@ -23,7 +23,11 @@ class AskAdoptionPetService {
             throw new AppError('Pet Already asked for adoption', 401);
         }
 
-        user.candidate_pets.push(pet);
+        const merged = {
+            ...pet,
+            ...{ "avatar_url": `https://localhost:3333/files/${pet.avatar}`}
+        };
+        user.candidate_pets.push(merged);
         await userRepository.save(user);
 
         return user;

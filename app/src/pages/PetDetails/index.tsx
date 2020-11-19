@@ -163,7 +163,7 @@ const PetDetails: React.FC = () => {
             <PetImageContainer>
               <Image
                 style={{ width: 327, height: 183 }}
-                source={{uri: "https://source.unsplash.com/user/erondu/600x400" }}
+                source={{uri: "http://localhost:3333/files/"+pet.avatar}}
               />
             </PetImageContainer>
             <PetContent>

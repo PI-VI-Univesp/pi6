@@ -51,6 +51,7 @@ interface Pet {
     institution: Institution;
     species: string;
     gender: string;
+    avatar_url: string;
 }
 
 const Favorite: React.FC = () => {
@@ -58,10 +59,6 @@ const Favorite: React.FC = () => {
     const { signOut, user } = useAuth();
     const navigation = useNavigation();
     const [ pets, setPets ] = useState<Pet[]>(() => {
-        /*const storagedPets = localStorage.getItem('@QueroPet:pets');
-        if (storagedPets){
-            return JSON.parse(storagedPets);
-        }*/
         return [];
     });
 
@@ -71,10 +68,9 @@ const Favorite: React.FC = () => {
       });
     }
     useLayoutEffect(()=>{
-      console.log('fav')
     },[pets]);
+
     useEffect(()=>{
-      console.log('fav')
       async function loadPet(): Promise<void> {
         const user_data = await api.get(`/users/${user.id}`);
         setPets(user_data.data.favorite_pets);
@@ -110,7 +106,7 @@ const Favorite: React.FC = () => {
 
               return(
               <Pet key={item.id} onPress={() => handleNavigate(item.id)}>
-                <PetImage source={{uri: "https://source.unsplash.com/user/erondu/600x400" }} />
+                <PetImage source={{uri: "http://localhost:3333/files/"+item.avatar}} />
                   <PetTitle>{item.name}<FontAwesomeIcon icon={ genderIcon } size={24}/></PetTitle>
                 <PetDescription>{item.info}</PetDescription>
               </Pet>

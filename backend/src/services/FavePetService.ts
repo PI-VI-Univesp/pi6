@@ -22,8 +22,11 @@ class FavePetService {
         if(user.favorite_pets.includes(pet)){
             throw new AppError('Pet Already Faved', 401);
         }
-
-        user.favorite_pets.push(pet);
+        const merged = {
+            ...pet,
+            ...{ "avatar_url": `https://localhost:3333/files/${pet.avatar}`}
+        };
+        user.favorite_pets.push(merged);
         await userRepository.save(user);
 
         return user;

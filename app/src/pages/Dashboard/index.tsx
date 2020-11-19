@@ -43,6 +43,7 @@ interface Pet {
     institution: Institution;
     species: string;
     gender: string;
+    avatar_url: string;
 }
 
 const Home: React.FC = () => {
@@ -91,10 +92,9 @@ const Home: React.FC = () => {
               if(item.gender === "M"){
                 genderIcon = faMars;
               }
-
               return(
                 <Pet key={item.id} onPress={() => handleNavigate(item.id)}>
-                  <PetImage source={{uri: "https://source.unsplash.com/user/erondu/600x400" }} />
+                  <PetImage source={{uri: item.avatar_url}} />
                     <PetTitle>{item.name}<FontAwesomeIcon icon={ genderIcon } size={24}/></PetTitle>
                   <PetDescription>{item.info}</PetDescription>
                 </Pet>
