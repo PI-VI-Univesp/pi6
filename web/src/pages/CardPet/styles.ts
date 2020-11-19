@@ -5,14 +5,14 @@ import cadastroInBG from '../../assets/cat-login.jpg';
 
 import { shade } from 'polished';
 export const Container = styled.div`
-    height: 100vh;
+
     display: flex;
     align-items: stretch;
 `;
 
 export const Content = styled.div`
     img {
-        width: 640px;
+        max-width: 640px;
         height: 90vh;
         border-radius: 10px;
         background-size: cover;
@@ -24,7 +24,7 @@ export const Content = styled.div`
     display: flex;
     flex: 1;
     width: 100%;
-    height: 100vh;
+
     background:#fff;
     border-radius:10px;
     padding:25px;

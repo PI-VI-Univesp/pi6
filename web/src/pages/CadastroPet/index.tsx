@@ -1,10 +1,11 @@
-import React, { useCallback, useRef, useState, useEffect } from 'react';
+import React, { useCallback, useRef, useState, useEffect, ChangeEvent } from 'react';
+import { FiMail, FiUser, FiLock, FiCamera, FiArrowLeft } from 'react-icons/fi';
 import * as Yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
 import { useParams } from "react-router";
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import { Container, Content, AnimationContainer, Background, Image } from './styles';
+import { Container, Content, AnimationContainer, Background, AvatarInput,  Image } from './styles';
 import { useAuth, AuthProvider } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 import Input from '../../components/Input';
@@ -17,6 +18,7 @@ import { FaBirthdayCake, FaCat, FaDog } from "react-icons/fa";
 import { MdPets } from "react-icons/md";
 import MainMenu from '../../components/MainMenu';
 import { AiOutlineFieldNumber, AiOutlineInfoCircle } from "react-icons/ai";
+import server_url from "../../config"
 
 interface User {
     id: string;
@@ -44,6 +46,8 @@ interface Pet {
     birth_day: string;
     breed: string;
     coat: string;
+    avatar: string;
+    avatar_url: string;
 }
 
 interface CadastroPetFormData {
@@ -184,6 +188,26 @@ const CadastroPet: React.FC = () => {
         }
 
     }, [addToast, history]);
+    const handleAvatarChange = useCallback(
+        (e: ChangeEvent<HTMLInputElement>) => {
+          if (e.target.files) {
+            const data = new FormData();
+
+            data.append('avatar', e.target.files[0]);
+            data.append('user',user.id);
+            api.patch(`/pets/avatar/${pet.id}`, data).then(response => {
+
+              addToast({
+                type: 'success',
+                title: 'Avatar atualizado!',
+              });
+              window.location.reload();
+
+            });
+          }
+        },
+        [addToast],
+      );
 
     return (
         <Container>
@@ -209,11 +233,14 @@ const CadastroPet: React.FC = () => {
                 <AnimationContainer>
                     <Form ref={formRef} onSubmit={handleSubmit}>
                         <h1><span>Cadastro pet</span></h1>
-                        <div className="item">
-                            <Image src={'https://source.unsplash.com/user/erondu/600x400'}></Image>
-                            <input type="file" id="file" name="filename" value="" />
-                            <Button type="submit" name="sendPhoto" className="button button2">enviar</Button>
-                        </div>
+                        <AvatarInput>
+                            <img src={pet.avatar_url} alt={pet.name} />
+
+                            <label htmlFor="avatar">
+                                <FiCamera/>
+                                <input type="file" id="avatar" onChange={handleAvatarChange} />
+                            </label>
+                        </AvatarInput>
 
 
                         <div className="item" style={{ maxWidth: '600px' }}>

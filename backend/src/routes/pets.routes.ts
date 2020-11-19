@@ -1,7 +1,10 @@
 import { Router } from 'express';
 import multer from 'multer';
 import uploadConfig from '../config/upload';
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 import CreatePetService from '../services/CreatePetService';
+import UpdatePetAvatarService from '../services/UpdatePetAvatarService';
+
 import { getRepository } from 'typeorm';
 import Pet from '../models/Pet';
 import User from '../models/User';
@@ -22,7 +25,7 @@ petsRouter.get('/:id', async (request, response) => {
             where: { id: request.params.id }
         }
     ));
-    console.log(pet)
+
     const usersAllData = await userRepository.find();
 
         const user_data = usersAllData.filter((user) => (user.id === pet.user_id ))[0];
@@ -59,7 +62,11 @@ petsRouter.get('/', async (request, response) => {
 
         const institution = { id: user_id , name: user_data.name, state: user_data.state, city: user_data.city }
 
-        return { id, institution, has_faved_by, has_asked_for_adoption, name, species, particulars, info, avatar, birth_day, gender, coat, breed }
+        let avatar_url = null;
+        if (avatar) {
+            avatar_url = "http://localhost:3333/files/" + avatar;
+        }
+        return { id, institution, has_faved_by, has_asked_for_adoption, name, species, particulars, info, avatar, avatar_url, birth_day, gender, coat, breed }
     });
 
   return response.json(pets);
@@ -98,3 +105,19 @@ petsRouter.put('/:id', async (request, response) => {
 });
 
 export default petsRouter;
+
+petsRouter.patch('/avatar/:pet_id', upload.single('avatar'), async ( request, response ) => {
+try{
+    const updatePetAvatar = new UpdatePetAvatarService();
+    const pet = await updatePetAvatar.execute({
+        pet_id: request.params.pet_id,
+        user_id: request.body.user,
+        avatarFilename: request.file.filename,
+    });
+
+    return response.json(pet);
+} catch (err) {
+    console.log(err)
+}
+
+} );

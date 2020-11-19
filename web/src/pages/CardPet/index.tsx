@@ -44,6 +44,7 @@ interface Pet {
     birth_day: string;
     breed: string;
     coat: string;
+    avatar_url: string;
 }
 
 
@@ -73,14 +74,14 @@ const CadastroInstituicao: React.FC = () => {
 
     },[]);
 
-    const pet = pets.filter( (p) => (p.id === pet_id) )[0];   
+    const pet = pets.filter( (p) => (p.id === pet_id) )[0];
 
     return (
         <Container>
             <MainMenu>
             <img className="logo" src={logoImg} alt="QueroPet" />
                 <h1 className="title">Cadastro</h1>
-                
+
                 <ul>
                     <li><Link to='/cadastroInstituicao'>Meu Cadastro</Link></li>
                     <li><Link to='/alterarsenha'>Alterar Senha</Link></li>
@@ -95,7 +96,7 @@ const CadastroInstituicao: React.FC = () => {
             <Content>
                 <AnimationContainer>
                     <h1 className="principalTitle"><label id="name" className="title">{pet.name}</label></h1>
-                        
+
                         <div className="item" >
                             <FaDog className={pet.species === 'dog' ? 'iconSpecie' : 'invisible'} />
                             <FaCat className={pet.species === 'cat' ? 'iconSpecie' : 'invisible'}  />
@@ -103,7 +104,7 @@ const CadastroInstituicao: React.FC = () => {
                             <GiMale className={pet.gender === 'M' ? 'iconSpecie' : 'invisible'}/>
 
                         </div>
-                        
+
                         <div className="item">
                             <label className="titleItemCard">Nascimento </label>
                             <label id="bithday">{pet.birth_day}</label>
@@ -137,7 +138,7 @@ const CadastroInstituicao: React.FC = () => {
                 </AnimationContainer>
             </Content>
             <Content>
-                <img src={'https://source.unsplash.com/user/erondu/600x400'} alt="QueroPet" />
+                <img src={pet.avatar_url} alt="QueroPet" />
             </Content>
         </Container>
     );

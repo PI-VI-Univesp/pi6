@@ -181,7 +181,7 @@ export const AnimationContainer = styled.div`
             margin-top: 24px;
         }
     }
-    
+
     span{
         //margin-top: 24px;
         min-width: 110px;
@@ -191,19 +191,19 @@ export const AnimationContainer = styled.div`
      .title{
         color: #FF9000;
         }
-        @media (max-width: 800px) {    
+        @media (max-width: 800px) {
             .item{
                  max-width:100% !important;
                  display: flex;
                  align-items: baseline !important;
-                 flex-direction: column;            
-                 text-align: end;             
+                 flex-direction: column;
+                 text-align: end;
             }
             span
              {
                  min-width:0px;
              }
-             select{           
+             select{
                  margin-left:0px;
              }
              h3{
@@ -215,8 +215,8 @@ export const AnimationContainer = styled.div`
              .divRadioButton {
                 flex-direction: row;
              }
-         
-         }   
+
+         }
 
 
 `;
@@ -225,4 +225,49 @@ export const Background = styled.div`
     flex: 1;
     background: url(${cadastroInBG});
     background-size: cover;
+`;
+
+
+export const AvatarInput = styled.div`
+  margin-bottom: 32px;
+  position: relative;
+  align-self: center;
+  max-width: 200px;
+
+  img {
+    width: 186px;
+    height: 186px;
+    border-radius: 50%;
+  }
+
+  label {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background: #ff9000;
+    border-radius: 50%;
+    right: 0;
+    bottom: 0;
+    border: 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    input {
+      display: none;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      color: #312e38;
+    }
+
+    &:hover {
+      background: ${shade(0.2, '#ff9000')};
+    }
+  }
 `;
