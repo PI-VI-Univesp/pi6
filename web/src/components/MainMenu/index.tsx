@@ -27,7 +27,7 @@ const MainMenu: React.FC = ({children, ...rest}) => {
                     <li><Link style={linkStyle} to='/'>Meus Pets</Link></li>
                     <li><Link style={linkStyle} to='/pedidosadocao'>Pedidos de Adoção</Link></li>
                 </ul>
-                <button style={{ position: 'absolute', bottom: '0', backgroundColor: 'none', color: 'black', }} onClick={() => { localStorage.removeItem("@QueroPet:token"); window.location.reload(); }}>
+                <button style={{ position: 'absolute', bottom: '0', marginBottom: '10px', backgroundColor: 'none', color: 'black', }} onClick={() => { localStorage.removeItem("@QueroPet:token"); window.location.reload(); }}>
             Sair
         </button>
     </Menu>

@@ -29,6 +29,38 @@ usersRouter.get('/', async (request, response) => {
   return response.json(users);
 });
 
+usersRouter.post('/pendingrequests', ensureAuthenticated , async (request, response) => {
+    const userRepository = getRepository(User);
+    const petRepo = getRepository(Pet);
+    const user_pets = await petRepo.find( { where: { user_id: request.user.id  },}, );
+    const all_users = await userRepository.find();
+    let final_candidates: User[] = [];
+    const candidates = all_users.forEach(
+        (user) => {
+            user.candidate_pets.forEach((pet) => {
+                user_pets.forEach((u_pet)=> {
+                    if (u_pet.id === pet.id){
+                        final_candidates.push(user);
+                    }
+                })
+            });
+        });
+
+    function onlyUnique(value: any, index: any, self: any) {
+        return self.indexOf(value) === index;
+    }
+
+    var a = final_candidates;
+    var unique = a.filter(onlyUnique);
+
+   const users = unique.map(({id, name, phone_type, phone, info, email, birthday, street, complement, number, neightborhood, city, state, zipcode, social_id, social_id_type, favorite_pets, candidate_pets}) => {
+      return { id, name, phone_type, phone, info, email, birthday, street, complement, number, neightborhood, city, state, zipcode, social_id, social_id_type, favorite_pets, candidate_pets }
+    })
+
+    return response.json(users);
+  });
+
+
 usersRouter.get('/:id', async (request, response) => {
     const userRepository = getRepository(User);
     const usersAllData = await userRepository.find({relations: ["favorite_pets", "candidate_pets"]});
