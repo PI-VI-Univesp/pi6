@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { Container, Content, AnimationContainer, Background } from './styles';
+import Select from '../../components/Select';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import logoImg from '../../assets/logo.svg';
@@ -24,8 +25,14 @@ const SignUp: React.FC = () => {
     const {addToast} = useToast();
     const history = useHistory();
 
+    const userTypeOption = [
+        { value: 'adopter', label: 'Quero adotar' },
+        { value: 'institution', label: 'Sou uma instituição' }
+    ]
+
     const handleSubmit = useCallback( async (data: object) => {
         try {
+
             formRef.current?.setErrors({});
             const schema = Yup.object().shape({
                 name: Yup.string().required('Nome obrigatório'),
@@ -35,6 +42,7 @@ const SignUp: React.FC = () => {
             await schema.validate(data, {
                 abortEarly: false,
             });
+
             await api.post('/users', data);
             history.push('/');
 
@@ -67,7 +75,7 @@ const SignUp: React.FC = () => {
                 <img src={logoImg} alt="QueroPet"/>
                 <Form ref={formRef} onSubmit={handleSubmit}>
                     <h1>Faça seu Cadastro</h1>
-
+                    <Select name="type" options={userTypeOption} defaultValue={userTypeOption[0]}/>
                     <Input icon={FiUser} name="name" placeholder="Nome"/>
                     <Input icon={FiMail} name="email" placeholder="E-Mail"/>
                     <Input type="password" name="password" icon={FiLock} placeholder="Senha" />

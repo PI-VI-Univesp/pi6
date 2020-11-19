@@ -1,4 +1,4 @@
-import React , { useRef, useCallback } from 'react';
+import React , { useState, useRef, useCallback } from 'react';
 
 import { 
      Image,
@@ -9,6 +9,7 @@ import {
      TextInput, 
      Alert
 } from 'react-native';
+import { Picker } from '@react-native-community/picker';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
@@ -38,11 +39,13 @@ interface SignUpFormData {
 const SignUp: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
     const navigation = useNavigation();
+    const [selectedValue, setSelectedValue] = useState();
 
     const emailInputRef = useRef<TextInput>(null);
     const passwordInputRef = useRef<TextInput>(null);
     const handleSignUp = useCallback( async (data: object) => {
         try {
+            data["type"] = selectedValue;
             formRef.current?.setErrors({});
             const schema = Yup.object().shape({
                 name: Yup.string().required('Nome obrigatório'),
@@ -52,6 +55,7 @@ const SignUp: React.FC = () => {
             await schema.validate(data, {
                 abortEarly: false,
             });
+
             await api.post('/users', data);
             Alert.alert('Cadastro realizado com sucesso !', 'Você já pode fazer login na aplicação');
             navigation.goBack();
@@ -92,7 +96,16 @@ const SignUp: React.FC = () => {
                         <Title>Crie sua conta</Title>
                     </View>
                     <Form ref={formRef} onSubmit={handleSignUp}>
-                    <Input 
+                        <Picker
+                            selectedValue={selectedValue}
+                            style={{height: 80 }}
+                            onValueChange={(itemValue, itemIndex) => 
+                            setSelectedValue(itemValue)}
+                        >
+                            <Picker.Item label="Quero adotar" value="adopter" />
+                            <Picker.Item label="Sou uma instituição" value="institution" />
+                        </Picker>
+                        <Input 
                             autoCapitalize="words" 
                             name="name" 
                             icon="user" 

@@ -26,6 +26,19 @@ class Pet {
     particulars: string;
 
     @Column()
+    birth_day: string;
+
+    @Column()
+    coat: string;
+
+    @Column()
+    gender: string;
+
+    @Column()
+    breed: string;
+
+
+    @Column()
     info: string;
 
     @Column()

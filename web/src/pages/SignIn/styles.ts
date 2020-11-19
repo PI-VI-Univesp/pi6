@@ -59,7 +59,7 @@ export const AnimationContainer = styled.div`
     }
     > a {
 
-        color: #FF90FF;
+        color: #FF9000;
         display: block;
         margin-top: 24px;
         text-decoration: none;
