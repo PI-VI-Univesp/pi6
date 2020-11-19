@@ -11,12 +11,13 @@ import CardPet from '../pages/CardPet';
 import CadastroPet from '../pages/CadastroPet';
 import NewPet from '../pages/NewPet';
 import AlterarSenha from '../pages/AlterarSenha';
-
+import PedidosAdocao from '../pages/PedidosAdocao';
 
 const Routes: React.FC = () => (
     <Switch>
         <Route path="/" exact component={SignIn} />
         <Route path="/home" exact component={Home} isPrivate/>
+        <Route path="/PedidosAdocao" exact component={PedidosAdocao} isPrivate/>
         <Route path="/test" exact component={Test} />
         <Route path="/signup" exact component={SignUp} />
         <Route path="/dashboard" exact component={Dashboard} isPrivate />
