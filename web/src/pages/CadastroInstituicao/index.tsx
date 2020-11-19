@@ -207,9 +207,7 @@ const CadastroInstituicao: React.FC = () => {
                             <span>cep</span>
                             <Input name="zipcode" defaultValue={user.zipcode} placeholder="00000-000" icon={FiMapPin} />
                         </div>
-                        <h3><span>Senha</span></h3>
-                        <Input type="password" name="password" placeholder="senha" icon={FiLock} />
-                        <Input type="password" name="password" placeholder="confirmar senha" icon={FiLock} />
+
                         <div style={{ maxWidth: '300px', border:'none' }}>
                             <Button type="submit" className="button">salvar</Button>
                             <div className="button" style={{ float: "right" }}>
