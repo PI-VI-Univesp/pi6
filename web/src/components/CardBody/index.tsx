@@ -3,7 +3,7 @@ import { Container, Date , BodyContent, Name, ButtonPanel} from './styles';
 import Button from '../Button';
 import  api from '../../services/api';
 import { useAuth } from '../../hooks/auth';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { FaDog, FaCat } from "react-icons/fa";
 import { GiFemale, GiMale } from "react-icons/gi";
 
@@ -30,74 +30,6 @@ const CardBody: React.FC<CardBodyProps> = ({pet_id, date, name, info, has_faved_
     const history = useHistory();
     const {user} = useAuth();
 
-    const [ fave , setFave ] = useState(false);
-    const [ faveText , setFaveText ] = useState("Favoritar");
-    const [ faveBgColor , setFaveBgColor ] = useState({ backgroundColor: "orange" });
-
-    const [ askForAdoption , setAskForAdoption ] = useState(false);
-    const [ askForAdoptionText , setAskForAdoptionText ] = useState("Quero Adotar");
-    const [ askForAdoptionBgColor , setAskForAdoptionBgColor ] = useState({ backgroundColor: "orange" });
-
-    const handleFave = () => {
-        if(fave){
-            setFave(false);
-            api.post(`/users/unfave/${pet_id}`, {} , { headers: { Authorization: `Bearer ${localStorage.getItem('@QueroPet:token')}`, }}).then(response => {
-                setFaveText("Favoritar");
-                setFaveBgColor({backgroundColor: "orange"})
-            });
-
-        } else {
-            setFave(true);
-            api.post(`/users/fave/${pet_id}`,  {} ,  { headers: { Authorization: `Bearer ${localStorage.getItem('@QueroPet:token')}`, }}).then(response => {
-                setFaveText("DesFavoritar");
-                setFaveBgColor({backgroundColor: "brown"})
-            });
-
-        }
-    }
-    useEffect( () => {
-        if(!has_faved_by){
-            setFave(false);
-            setFaveText("Favoritar");
-            setFaveBgColor({ backgroundColor: "orange" });
-        }else {
-            setFave(true);
-            setFaveText("DesFavoritar");
-            setFaveBgColor({ backgroundColor: "brown" });
-        }
-    }, []);
-
-
-
-    const handleAskForAdoption = () => {
-        if(askForAdoption){
-            setAskForAdoption(false);
-            api.post(`/users/unaskadoption/${pet_id}`, {} , { headers: { Authorization: `Bearer ${localStorage.getItem('@QueroPet:token')}`, }}).then(response => {
-                setAskForAdoptionText("Quero Adotar");
-                setAskForAdoptionBgColor({backgroundColor: "orange"})
-            });
-
-        } else {
-            setAskForAdoption(true);
-            api.post(`/users/askadoption/${pet_id}`,  {} ,  { headers: { Authorization: `Bearer ${localStorage.getItem('@QueroPet:token')}`, }}).then(response => {
-                setAskForAdoptionText("Desistir da Adoção");
-                setAskForAdoptionBgColor({backgroundColor: "brown"})
-            });
-
-        }
-    }
-    useEffect( () => {
-        if(!has_asked_for_adoption){
-            setAskForAdoption(false);
-            setAskForAdoptionText("Quero Adotar");
-            setAskForAdoptionBgColor({ backgroundColor: "orange" });
-        }else {
-            setAskForAdoption(true);
-            setAskForAdoptionText("Desistir da Adoção");
-            setAskForAdoptionBgColor({ backgroundColor: "brown" });
-        }
-    }, []);
-
     return (
 
     <Container>
@@ -110,13 +42,12 @@ const CardBody: React.FC<CardBodyProps> = ({pet_id, date, name, info, has_faved_
     <Name>{name}</Name>
 
 
-    
+
     instituição:  <BodyContent> <strong>{institution.name}, {institution.city} - {institution.state}</strong></BodyContent>
 
     <ButtonPanel>
-        <Button onClick={() => (handleFave())} style={faveBgColor}>{faveText}</Button>
-        <Button onClick={() => (handleAskForAdoption())} style={askForAdoptionBgColor}>{askForAdoptionText}</Button>
-        <Button onClick={() => (history.push(`/cardPet/${pet_id}`))}>Saiba Mais</Button>
+
+        <Button onClick={() => (history.push(`/cadastroPet/${pet_id}`))}>Editar</Button>
 
     </ButtonPanel>
     </Container>
