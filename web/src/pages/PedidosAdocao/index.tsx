@@ -10,18 +10,14 @@ interface PetParams {
     pet: string;
 }
 
-interface Institution {
-    id: string;
-    name: string;
-    city: string;
-    state: string;
-}
-
 interface User {
     id: string;
     name: string;
     phone: string;
     email: string;
+    city: string;
+    state: string;
+    candidate_pets: Pet[];
 }
 
 
@@ -33,11 +29,11 @@ interface Pet {
     info: string;
     header_name: string;
     image: string;
-    institution: Institution;
     species: string;
     gender: string;
     breed: string;
     birth_day: string;
+    avatar: string;
 }
 
 const PedidosAdocao: React.FC = () => {
@@ -46,50 +42,44 @@ const PedidosAdocao: React.FC = () => {
     const location = useLocation();
     const tipoPesquisa = location.pathname.split('/')[2];
 
-    const [ pets, setPets ] = useState<Pet[]>(() => {
-        const storagedPets = localStorage.getItem('@QueroPet:pets');
-        if (storagedPets){
-            return JSON.parse(storagedPets);
+    const [ candidates, setCandidates ] = useState<User[]>(() => {
+        const storagedCandidates = localStorage.getItem('@QueroPet:candidates');
+        if (storagedCandidates){
+            return JSON.parse(storagedCandidates);
         }
         return [];
     });
 
     useEffect(()=> {
-        localStorage.setItem('@QueroPet:pets', JSON.stringify(pets) );
-    }, [pets]);
+        localStorage.setItem('@QueroPet:candidates', JSON.stringify(candidates) );
+    }, [candidates]);
 
     useEffect(()=>{
-        api.get(`pets/`).then(response => {
-            setPets(response.data);
+        const token = localStorage.getItem('@QueroPet:token');
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+        api.post(`users/pendingrequests/`, {},  config ).then(response => {
+            console.log(response.data);
+            setCandidates(response.data);
         });
 
     },[]);
-
-
-
-    function getListaPets(){
-//*ajustar  para trazer somente pets que possuem
-//registros no campo has_asked_for_adoption*/
-        //return pets.filter( (p) => (p.institution.id === user.id && p.has_asked_for_adoption !== null));
-        return pets.filter( (p) => (p.institution.id === user.id));
-    }
-    const listaPets = getListaPets();
-
+    console.log(candidates)
     return(
 
         <Container>
             <MainMenu/>
             <Content>
-            { listaPets.map( pet => (
+            { candidates.map( candidate => (
                     <CardAdoption
-                    key={pet.id}
-                    item_id={pet.id}
-                    name={pet.name}
-                    breed ={pet.breed}
-                    species={pet.species}
-                    gender={pet.gender}
-                    birth_day={pet.birth_day}
-                    adoption={ pet.has_asked_for_adoption}
+                    id={candidate.id}
+                    name={candidate.name}
+                    phone= {candidate.phone}
+                    email= {candidate.email}
+                    city={candidate.city}
+                    state={candidate.state}
+                    candidate_pets={candidate.candidate_pets}
                     />
                 ))}
             </Content>

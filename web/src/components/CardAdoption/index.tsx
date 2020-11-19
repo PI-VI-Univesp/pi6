@@ -4,76 +4,63 @@ import CardAdoptionBody from '../CardAdoptionBody';
 import { FaDog, FaCat } from "react-icons/fa";
 import { GiFemale, GiMale } from "react-icons/gi";
 
-interface Institution {
-    id: string;
-    name: string;
-    city: string;
-    state: string;
-}
+
 interface User {
     id: string;
     name: string;
     phone: string;
     email: string;
+    city: string;
+    state: string;
+    candidate_pets: Pet[];
 }
 
-interface CardProps {
-    item_id: string;
+interface Pet {
+    id: string;
     name: string;
-    breed: string;
+    has_faved_by: User[];
+    has_asked_for_adoption: User[];
+    info: string;
+    header_name: string;
+    image: string;
     species: string;
     gender: string;
+    breed: string;
     birth_day: string;
-    adoption: User[];
+    avatar: string;
 }
 
 
-const CardAdoption: React.FC<CardProps> = ({ item_id, name, breed, species, gender, birth_day, adoption, ...rest }) => (
+const CardAdoption: React.FC<User> = ({ id, name, phone, email, city, state, candidate_pets,  ...rest }) => (
 
     <Container>
         <Content>
-            <div className="item" >
-                <h1 className="principalTitle"><label id="name" className="title">{name}</label></h1>
-            </div>
-            <div className="item">
-                <FaDog className={species === 'dog' ? 'iconSpecie' : 'invisible'} />
-                <FaCat className={species === 'cat' ? 'iconSpecie' : 'invisible'} />
-                <GiFemale className={gender === 'F' ? 'iconSpecie' : 'invisible'} />
-                <GiMale className={gender === 'M' ? 'iconSpecie' : 'invisible'} />
-            </div>
-            <div className="item">
-                <label className="titleItemCard">raça </label>
-                <label id="breed">{breed}</label>
-            </div>
-            <div className="item">
-                <label className="titleItemCard">nascimento </label>
-                <label id="breed">{birth_day}</label>
-            </div>
-        </Content>
-
-        <Content>
-            <h2 className="principalTitle">Adotantes:</h2>
             <div>
                 <div className="item">
                     <label className="titleItemCard">nome </label>
-                    <label id="name">nome</label>
+                    <label id="name">{name}</label>
                 </div>
                 <div className="item">
                     <label className="titleItemCard">contato</label>
-                    <label id="phone">telefone / </label>
-                    <label id="phone">email </label>
+                    <label id="phone">{phone} / </label>
+                    <label id="email"> {email} </label>
                 </div>
                 <div className="item">
                     <label className="titleItemCard">residência</label>
-                    <label id="phone">cidade - estado</label>
+                    <label id="location">{city} - {state}</label>
                 </div>
+                <div className="item">
+                    <label className="titleItemCard">Interessado em adotar:</label>
+                    <label id="pets"></label>
+                </div>
+                <ul>
+                    {candidate_pets.map((pet)=> (
+                        <li><a href={`/cardPet/${pet.id}`}> {pet.name}</a> </li>
+                    ))}
+
+                </ul>
             </div>
-            {adoption.map(user => (
-                <CardAdoptionBody
-                    key={user.id}
-                    id={user.id}
-                />
-            ))}
+
         </Content>
     </Container>
 );

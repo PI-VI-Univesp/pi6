@@ -13,10 +13,12 @@ export const Container = styled.div`
     background-color:#fff;
     width:70%;
     border-radius: 10px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 
 
     .iconSpecie{
@@ -26,7 +28,7 @@ export const Container = styled.div`
         float: right;
     }
     .invisible{
-        display: none;        
+        display: none;
     }
     .item{
         margin-bottom: 20px;
@@ -39,7 +41,7 @@ export const Container = styled.div`
     padding-right:10px;
     text-transform: lowercase;
     min-width: 50px;
-   }   
+   }
    h1{
        padding-right: 10px;
    }
@@ -52,10 +54,33 @@ export const Content = styled.div`
     place-content: center;
     width: 100%;
     padding-left: 50px;
-    overflow: auto;    
+    overflow: auto;
     background-size: cover;
     img {
         max-width: 340px;
+    }
+    ul {
+        margin-left: 40px;
+        list-style:none;
+        text-decoration: none;
+        display: flex;
+    }
+    li {
+        flex: 1;
+        margin-bottom: 10px;
+    }
+    a {
+        flex:1;
+        text-decoration: none;
+        background-color: orange;
+        color: white;
+        width: 50px;
+        padding: 5px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+
     }
 
 `;
