@@ -162,7 +162,7 @@ const PetDetails: React.FC = () => {
           <Pet>
             <PetImageContainer>
               <Image
-                style={{ width: 327, height: 183 }}
+                style={{ width: '100%', height: 200 }}
                 source={{uri: "http://localhost:3333/files/"+pet.avatar}}
               />
             </PetImageContainer>
