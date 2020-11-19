@@ -1,4 +1,4 @@
-package com.app;
+package com.queropetapp;
 
 import com.facebook.react.ReactActivity;
 
