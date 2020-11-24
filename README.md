@@ -6,8 +6,7 @@ https://www.youtube.com/watch?v=F0L7L5fTDgg
 
 ## O Download app pode ser feito em: 
 
-https://drive.google.com/file/d/1b9qk4GPhyUijJlGp_n_JnMEdrfrPkW9X/view?usp=sharing
-
+https://drive.google.com/drive/folders/1cE5G4ZV-mHlA6BLjthXgo1mysNGBVJdN?usp=sharing
 
 ## Instruções para desenvolvimento do Backend
 
