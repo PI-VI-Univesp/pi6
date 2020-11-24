@@ -100,7 +100,7 @@ const Orders: React.FC = () => {
 
               return(
                 <Pet key={item.id} onPress={() => handleNavigate(item.id)}>
-                  <PetImage source={{uri: "http://localhost:3333/files/"+item.avatar}} />
+                  <PetImage source={{uri: "https://qpapi.liquuid.me/files/"+item.avatar}} />
                     <PetTitle>{item.name}<FontAwesomeIcon icon={ genderIcon } size={24}/></PetTitle>
                   <PetDescription>{item.info}</PetDescription>
                 </Pet>

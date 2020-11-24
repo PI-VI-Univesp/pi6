@@ -4,6 +4,13 @@ Sistema on-line para busca por animais para adoção, para ter uma ideia do pont
 
 https://www.youtube.com/watch?v=F0L7L5fTDgg
 
+## O Download app pode ser feito em: 
+
+https://drive.google.com/drive/folders/1cE5G4ZV-mHlA6BLjthXgo1mysNGBVJdN?usp=sharing
+
+## Instalação via PlayStore
+
+https://play.google.com/store/apps/details?id=com.queropetapp
 
 ## Instruções para desenvolvimento do Backend
 
