@@ -8,6 +8,10 @@ https://www.youtube.com/watch?v=F0L7L5fTDgg
 
 https://drive.google.com/drive/folders/1cE5G4ZV-mHlA6BLjthXgo1mysNGBVJdN?usp=sharing
 
+## Instalação via PlayStore
+
+https://play.google.com/store/apps/details?id=com.queropetapp
+
 ## Instruções para desenvolvimento do Backend
 
 ### Conexão com o banco de dados
